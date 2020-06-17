@@ -1,26 +1,23 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import "./App.css";
+import FormInputTodo from "./components/FormInputTodo";
+import Header from "./components/Header";
+import ListItems from "./components/ListItems";
+import ModalDelete from "./components/ModalDelete";
+import SortAndSearch from "./components/SortAndSearch";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <div className="container">
+        <Header />
+        <div className="row">
+          <SortAndSearch />
+          <FormInputTodo />
+          <ListItems />
+        </div>
+      </div>
+      <ModalDelete />
+    </>
   );
 }
-
-export default App;
