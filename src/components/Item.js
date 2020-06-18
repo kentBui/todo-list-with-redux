@@ -100,7 +100,7 @@ function Item({ item, index, saveItem, deleteItem }) {
           <td className="text-center">{index + 1}</td>
           <td className={isFinish ? "text-muted" : ""}>{task}</td>
           <td className="text-center">
-            <span className={`badge ${Data[level].class}`}>
+            <span className={`badge ${Data[level].className}`}>
               {Data[level].level}
             </span>
           </td>
