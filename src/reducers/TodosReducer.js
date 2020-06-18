@@ -7,6 +7,7 @@ const initialState = {
     isDelete: false,
   },
   searchTerm: "",
+  sort: { name: "name", value: 1, label: "Name ASC" },
 };
 
 const TodosReducer = (state = initialState, action) => {
@@ -60,6 +61,15 @@ const TodosReducer = (state = initialState, action) => {
       return {
         ...state,
         searchTerm: value,
+      };
+    }
+
+    case "SORT_BY": {
+      const value = action.payload;
+
+      return {
+        ...state,
+        sort: value,
       };
     }
 

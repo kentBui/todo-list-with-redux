@@ -47,30 +47,9 @@ export const searchTodosList = (payload) => {
 };
 
 // sort list
-export const sortFromLevelAcs = () => {
+export const sortBy = (payload) => {
   return {
-    type: "LEVEL_ACS",
-    payload: "",
-  };
-};
-
-export const sortFromLevelDecs = () => {
-  return {
-    type: "LEVEL_DECS",
-    payload: "",
-  };
-};
-
-export const sortFromNameAcs = () => {
-  return {
-    type: "NAME_ACS",
-    payload: "",
-  };
-};
-
-export const sortFromNameDecs = () => {
-  return {
-    type: "NAME_DECS",
-    payload: "",
+    type: "SORT_BY",
+    payload: payload,
   };
 };

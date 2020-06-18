@@ -8,8 +8,13 @@ import { Col } from "reactstrap";
 function ListItems() {
   const todoList = useSelector((state) => state.todos);
   const searchTerm = useSelector((state) => state.searchTerm);
+  const sort = useSelector((state) => state.sort);
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todoList));
+  }, [todoList]);
 
   const saveItem = (item) => {
     const action = editTodoItem(item);
@@ -27,12 +32,30 @@ function ListItems() {
   };
 
   let newTodoList = todoList.filter(
-    (item) => item.task.indexOf(searchTerm) !== -1
+    (item) => item.task.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1
   );
 
-  useEffect(() => {
-    localStorage.setItem("todos", JSON.stringify(newTodoList));
-  }, [newTodoList]);
+  if (sort.name === "name") {
+    newTodoList = newTodoList.sort((a, b) => {
+      if (a.task > b.task) {
+        return sort.value;
+      }
+      if (a.task < b.task) {
+        return -sort.value;
+      }
+      return 0;
+    });
+  } else {
+    newTodoList = newTodoList.sort((a, b) => {
+      if (a.level > b.level) {
+        return sort.value;
+      }
+      if (a.level < b.level) {
+        return -sort.value;
+      }
+      return 0;
+    });
+  }
 
   return (
     <Col sm={12} className="mt-3">
@@ -49,6 +72,7 @@ function ListItems() {
               Level
             </th>
             <th style={{ width: "200px" }}>Action</th>
+            <th style={{ width: "50px" }}>Finish</th>
           </tr>
         </thead>
         {/* end header of table */}

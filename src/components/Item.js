@@ -5,6 +5,7 @@ import { Button, Input } from "reactstrap";
 
 function Item({ item, index, saveItem, deleteItem }) {
   const [isEdit, setIsEdit] = useState(false);
+  const [isFinish, setIsFinish] = useState(false);
 
   const [editItem, setEditItem] = useState({
     task: item.task,
@@ -37,6 +38,11 @@ function Item({ item, index, saveItem, deleteItem }) {
     saveItem(tempItem);
     setIsEdit(false);
   };
+  // check finish item
+  const onFinishChange = (e) => {
+    const value = e.target.checked;
+    setIsFinish(value);
+  };
 
   function renderEdit() {
     return (
@@ -55,12 +61,12 @@ function Item({ item, index, saveItem, deleteItem }) {
               onChange={handleChangeEdit}
             />
           </td>
+
           <td>
             <Input
               type="select"
               name="level"
               className="form-control"
-              required="required"
               onChange={handleChangeEdit}
             >
               <option value="0">Small</option>
@@ -68,6 +74,7 @@ function Item({ item, index, saveItem, deleteItem }) {
               <option value="2">High</option>
             </Input>
           </td>
+
           <td>
             <Button type="button" color="primary" onClick={saveEdit}>
               Save
@@ -85,19 +92,25 @@ function Item({ item, index, saveItem, deleteItem }) {
       </tbody>
     );
   }
+
   function renderNormal() {
     return (
       <tbody>
         <tr>
           <td className="text-center">{index + 1}</td>
-          <td>{task}</td>
+          <td className={isFinish ? "text-muted" : ""}>{task}</td>
           <td className="text-center">
             <span className={`badge ${Data[level].class}`}>
               {Data[level].level}
             </span>
           </td>
           <td>
-            <Button type="button" color="warning" onClick={changeToEdit}>
+            <Button
+              type="button"
+              color="warning"
+              onClick={changeToEdit}
+              disabled={isFinish}
+            >
               Edit
             </Button>
             <Button
@@ -108,6 +121,14 @@ function Item({ item, index, saveItem, deleteItem }) {
             >
               Delete
             </Button>
+          </td>
+          <td className="text-center">
+            <Input
+              type="checkbox"
+              name="check"
+              value={isFinish}
+              onChange={onFinishChange}
+            />
           </td>
         </tr>
       </tbody>

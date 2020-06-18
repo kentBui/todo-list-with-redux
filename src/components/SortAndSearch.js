@@ -15,13 +15,14 @@ import {
 } from "reactstrap";
 import { Data } from "../data/DataDropdown";
 import { searchTodosList } from "../actions/actions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { sortBy } from "../actions/actions";
 
 function SortAndSearch() {
   const dispatch = useDispatch();
+  const dropdownValue = useSelector((state) => state.sort);
 
   const [searchValue, setSearchValue] = useState("");
-  const [dropdownValue, setDropdownValue] = useState("Level ASC");
   const [dropdownOpen, setDropdownOpen] = useState(false);
 
   // set dropdown open
@@ -30,8 +31,8 @@ function SortAndSearch() {
   };
   // get dropdown item
   const handleChangeDropdown = (item) => {
-    console.log(item);
-    setDropdownValue(item);
+    const action = sortBy(item);
+    dispatch(action);
   };
   //
   const handleSearch = (e) => {
@@ -64,12 +65,14 @@ function SortAndSearch() {
                   key={index}
                   onClick={() => handleChangeDropdown(item)}
                 >
-                  {item}
+                  {item.label}
                 </DropdownItem>
               ))}
             </DropdownMenu>
           </Dropdown>
-          <Badge color="primary">{dropdownValue}</Badge>
+          <Badge color="primary" className="badge-pill">
+            {dropdownValue.label}
+          </Badge>
         </Col>
         {/* <!-- SORT : END --> */}
 
