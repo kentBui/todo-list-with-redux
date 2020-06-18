@@ -9,7 +9,7 @@ function Item({ item, index, saveItem, deleteItem }) {
 
   const [editItem, setEditItem] = useState({
     task: item.task,
-    level: "0",
+    level: 0,
   });
 
   const { id, task, level } = item;
